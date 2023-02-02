@@ -23,26 +23,3 @@ button.addEventListener("click", (e) => {
         chart.style.display = 'block'
     }
 })
-
-function _(selector) {
-    return document.querySelector(selector)
-}
-let x = _('#x')
-let y = _('#y')
-let z = _('#z')
-
-if (window.DeviceMotionEvent == undefined) {
-    alert('no accelerometer')
-} else {
-    window.addEventListener("devicemotion", accelerometerUpdate, true)
-}
-
-function accelerometerUpdate(e) {
-    let acc = e.accelerationIncludingGravity
-    let aX = acc.x
-    let aY = acc.y
-    let aZ = acc.z
-    x.innerText = aX.toFixed(2)
-    y.innerText = aY.toFixed(2)
-    z.innerText = aZ.toFixed(2)
-}

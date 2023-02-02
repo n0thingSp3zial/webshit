@@ -20,7 +20,8 @@ button.addEventListener("click", (e) => {
     {
         rootEl.style.setProperty('--clr', '#ff1867')
         button.innerText = 'stop'
-        rootEl.style.setProperty('--offset', window.screen.height / 4 + 'px')
+        rootEl.style.setProperty('--offset', document.documentElement.scrollHeight / 2 - 100 + 'px')
+        console.log(document.documentElement.scrollHeight)
     }
 })
 

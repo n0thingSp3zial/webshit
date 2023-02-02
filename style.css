@@ -1,26 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 
-:root
-{
+:root {
     --clr: #9bff1e;
     --offset: 0px;
 }
-*
-{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-body
-{
+
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: radial-gradient(ellipse at bottom, #1b2735 0%,#090a0f 100%);
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
 }
+
 /*
     red - #ff1867
     darkBlue - #1b2735 (-> #090a0f)
@@ -30,22 +30,24 @@ body
 .mainButton {
     position: relative;
     top: var(--offset);
-    padding: 30px 80px;
+    padding: 50px 120px;
     border-radius: 6px;
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 1.5em;
-    letter-spacing: 0.1em;
-    font-weight: 400;
+    font-size: 2.5em;
+    letter-spacing: 0.2em;
+    font-weight: 500;
     border: none;
-    color: #fff;
+    color: #151D28;
     cursor: pointer;
     background-color: var(--clr);
     transition: all 0.2s ease;
 }
+
 .mainButton:active {
     transform: scale(0.96);
 }
+
 .mainButton:before,
 .mainButton:after {
     position: absolute;
@@ -57,6 +59,7 @@ body
     z-index: -1000;
     background-repeat: no-repeat;
 }
+
 .mainButton.animate::before {
     top: -70%;
     background-image: radial-gradient(circle, var(--clr) 20%, transparent 20%),
@@ -72,6 +75,7 @@ body
     10% 10%, 18% 18%;
     animation: greentopBubbles ease-in-out 0.6s forwards infinite;
 }
+
 @keyframes greentopBubbles {
     0% {
         background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
@@ -87,6 +91,7 @@ body
         background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
     }
 }
+
 .mainButton.animate::after {
     bottom: -70%;
     background-image: radial-gradient(circle, var(--clr) 20%, transparent 20%),
@@ -99,6 +104,7 @@ body
     background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
     animation: greenbottomBubbles ease-in-out 0.6s forwards infinite;
 }
+
 @keyframes greenbottomBubbles {
     0% {
         background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,

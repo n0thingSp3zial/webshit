@@ -1,8 +1,24 @@
-let i = 0
-color = ["#ff0000", "#00ff00", "#0000ff"]
-document.querySelector("button").addEventListener("click",
-    function() {
-    i = i < color.length ? ++i : 0
-    document.querySelector("body").style.background = color[i]
+const button = document.querySelector(".mainButton")
+let startPage = true
+const rootEl = document.querySelector(':root')
+
+button.addEventListener("click", (e) => {
+    e.preventDefault
+    button.classList.add("animate")
+    setTimeout(() => {
+        button.classList.remove("animate")
+    }, 600)
+
+    startPage = startPage ? false : true
+    if (startPage)
+    {
+        rootEl.style.setProperty('--clr', '#9bff1e');
+
     }
-)
+    else
+    {
+        rootEl.style.setProperty('--clr', '#ff1867');
+
+    }
+})
+

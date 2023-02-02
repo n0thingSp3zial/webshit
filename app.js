@@ -20,7 +20,7 @@ button.addEventListener("click", (e) => {
     {
         rootEl.style.setProperty('--clr', '#ff1867')
         button.innerText = 'stop'
-        rootEl.style.setProperty('--offset', '250px')
+        rootEl.style.setProperty('--offset', window.screen.height / 4 + 'px')
     }
 })
 

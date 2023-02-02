@@ -15,11 +15,12 @@ button.addEventListener("click", (e) => {
         rootEl.style.setProperty('--clr', '#9bff1e')
         button.innerText = 'start'
         rootEl.style.setProperty('--offset', '0px')
-        chart.style.display = 'none'
+        chart.style.display = 'block'
     } else {
         rootEl.style.setProperty('--clr', '#ff1867')
-        button.innerText = 'stop'
+        //button.innerText = 'stop'
+        button.innerText = (typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function") + ''
         rootEl.style.setProperty('--offset', Math.floor(document.documentElement.scrollHeight / 4) + 'px')
-        chart.style.display = 'block'
+        chart.style.display = 'none'
     }
 })

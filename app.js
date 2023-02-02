@@ -12,13 +12,15 @@ button.addEventListener("click", (e) => {
     startPage = startPage ? false : true
     if (startPage)
     {
-        rootEl.style.setProperty('--clr', '#9bff1e');
-
+        rootEl.style.setProperty('--clr', '#9bff1e')
+        button.innerText = 'start'
+        rootEl.style.setProperty('--offset', '0px')
     }
     else
     {
-        rootEl.style.setProperty('--clr', '#ff1867');
-
+        rootEl.style.setProperty('--clr', '#ff1867')
+        button.innerText = 'stop'
+        rootEl.style.setProperty('--offset', '250px')
     }
 })
 

@@ -3,7 +3,8 @@
 
 :root
 {
-    --clr: #9bff1e
+    --clr: #9bff1e;
+    --offset: 0px;
 }
 *
 {
@@ -28,8 +29,14 @@ body
 */
 .mainButton {
     position: relative;
-    padding: 10px 22px;
+    top: var(--offset);
+    padding: 30px 80px;
     border-radius: 6px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    letter-spacing: 0.1em;
+    font-weight: 400;
     border: none;
     color: #fff;
     cursor: pointer;

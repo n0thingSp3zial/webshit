@@ -2,7 +2,8 @@ const button = document.querySelector(".mainButton")
 const chart = document.querySelector(".chart")
 let startPage = true
 const rootEl = document.querySelector(':root')
-let counter
+const valueDisplays = document.querySelectorAll(".num")
+
 
 button.addEventListener("click", (e) => {
     e.preventDefault
@@ -13,11 +14,16 @@ button.addEventListener("click", (e) => {
 
     startPage = !startPage
     if (startPage) {
-        clearInterval(counter)
+        window.removeEventListener("devicemotion", myListener)
+
+        valueDisplays.forEach((valueDisplay) => {
+            valueDisplay.textContent = '0.00'
+        })
+
         rootEl.style.setProperty('--clr', '#9bff1e')
         button.innerText = 'start'
         rootEl.style.setProperty('--offset', '0px')
-        //chart.style.display = 'none'
+        chart.style.display = 'none'
     } else {
         rootEl.style.setProperty('--clr', '#ff1867')
         button.innerText = 'stop'
@@ -27,6 +33,20 @@ button.addEventListener("click", (e) => {
     }
 })
 
+function myListener(e) {
+    valueDisplays.forEach((valueDisplay) => {
+        let axis = valueDisplay.getAttribute("data-val")
+        if (axis === 'x') {
+            valueDisplay.textContent = (Math.round(e.acceleration.x * 100) / 100).toFixed(2) + ''
+        } else if (axis === 'y') {
+            valueDisplay.textContent = (Math.round(e.acceleration.y * 100) / 100).toFixed(2) + ''
+        } else {
+            valueDisplay.textContent = (Math.round(e.acceleration.z * 100) / 100).toFixed(2) + ''
+        }
+        // e.rotationRate.alpha e.rotationRate.beta e.rotationRate.gamma
+    })
+}
+
 function permission() {
     if (typeof (DeviceMotionEvent) !== "undefined" && typeof (DeviceMotionEvent.requestPermission) === "function") {
         // (optional) Do something before API request prompt.
@@ -34,25 +54,7 @@ function permission() {
             .then(response => {
                 // (optional) Do something after API prompt dismissed.
                 if (response === "granted") {
-                    window.addEventListener("devicemotion", (e) => {
-                        // do something for 'e' here.
-
-                        let valueDisplays = document.querySelectorAll(".num")
-                        let interval = 100   // 17 = 60Gh
-
-                        valueDisplays.forEach((valueDisplay) => {
-                            let axis = valueDisplay.getAttribute("data-val")
-                            counter = setInterval(function () {
-                                if (axis === 'x') {
-                                    valueDisplay.textContent = (Math.round(e.acceleration.x * 100) / 100).toFixed(2) + ''
-                                } else if (axis === 'y') {
-                                    valueDisplay.textContent = (Math.round(e.acceleration.y * 100) / 100).toFixed(2) + ''
-                                } else {
-                                    valueDisplay.textContent = (Math.round(e.acceleration.z * 100) / 100).toFixed(2) + ''
-                                }
-                            }, interval)
-                        })
-                    })
+                    window.addEventListener("devicemotion", myListener)
                 }
             })
             .catch(console.error)
@@ -61,5 +63,5 @@ function permission() {
     }
 }
 
-//===================================
+//======================================================================================================================
 

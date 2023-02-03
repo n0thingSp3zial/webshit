@@ -18,9 +18,27 @@ button.addEventListener("click", (e) => {
         chart.style.display = 'block'
     } else {
         rootEl.style.setProperty('--clr', '#ff1867')
-        //button.innerText = 'stop'
-        button.innerText = (typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function") + ''
+        button.innerText = 'stop'
         rootEl.style.setProperty('--offset', Math.floor(document.documentElement.scrollHeight / 4) + 'px')
         chart.style.display = 'none'
+        permission()
     }
 })
+
+function permission () {
+    if ( typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function" ) {
+        // (optional) Do something before API request prompt.
+        DeviceMotionEvent.requestPermission()
+            .then( response => {
+                // (optional) Do something after API prompt dismissed.
+                if ( response == "granted" ) {
+                    window.addEventListener( "devicemotion", (e) => {
+                        // do something for 'e' here.
+                    })
+                }
+            })
+            .catch( console.error )
+    } else {
+        alert( "DeviceMotionEvent is not defined" );
+    }
+}

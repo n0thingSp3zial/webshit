@@ -42,11 +42,11 @@ function permission() {
                             let axis = valueDisplay.getAttribute("data-val")
                             let counter = setInterval(function () {
                                 if (axis === 'x') {
-                                    valueDisplay.textContent = e.acceleration.x + ''
+                                    valueDisplay.textContent = (Math.round(e.acceleration.x * 100) / 100).toFixed(2) + ''
                                 } else if (axis === 'y') {
-                                    valueDisplay.textContent = e.acceleration.y + ''
+                                    valueDisplay.textContent = (Math.round(e.acceleration.y * 100) / 100).toFixed(2) + ''
                                 } else {
-                                    valueDisplay.textContent = e.acceleration.z + ''
+                                    valueDisplay.textContent = (Math.round(e.acceleration.z * 100) / 100).toFixed(2) + ''
                                 }
                                 // clearInterval(counter)
                             }, interval)

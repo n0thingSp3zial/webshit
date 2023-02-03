@@ -2,6 +2,7 @@ const button = document.querySelector(".mainButton")
 const chart = document.querySelector(".chart")
 let startPage = true
 const rootEl = document.querySelector(':root')
+let counter
 
 button.addEventListener("click", (e) => {
     e.preventDefault
@@ -12,6 +13,7 @@ button.addEventListener("click", (e) => {
 
     startPage = !startPage
     if (startPage) {
+        clearInterval(counter)
         rootEl.style.setProperty('--clr', '#9bff1e')
         button.innerText = 'start'
         rootEl.style.setProperty('--offset', '0px')
@@ -40,7 +42,7 @@ function permission() {
 
                         valueDisplays.forEach((valueDisplay) => {
                             let axis = valueDisplay.getAttribute("data-val")
-                            let counter = setInterval(function () {
+                            counter = setInterval(function () {
                                 if (axis === 'x') {
                                     valueDisplay.textContent = (Math.round(e.acceleration.x * 100) / 100).toFixed(2) + ''
                                 } else if (axis === 'y') {
@@ -48,7 +50,6 @@ function permission() {
                                 } else {
                                     valueDisplay.textContent = (Math.round(e.acceleration.z * 100) / 100).toFixed(2) + ''
                                 }
-                                // clearInterval(counter)
                             }, interval)
                         })
                     })

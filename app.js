@@ -15,30 +15,50 @@ button.addEventListener("click", (e) => {
         rootEl.style.setProperty('--clr', '#9bff1e')
         button.innerText = 'start'
         rootEl.style.setProperty('--offset', '0px')
-        chart.style.display = 'block'
+        chart.style.display = 'none'
     } else {
         rootEl.style.setProperty('--clr', '#ff1867')
         button.innerText = 'stop'
         rootEl.style.setProperty('--offset', Math.floor(document.documentElement.scrollHeight / 4) + 'px')
-        chart.style.display = 'none'
+        chart.style.display = 'block'
         permission()
     }
 })
 
-function permission () {
-    if ( typeof( DeviceMotionEvent ) !== "undefined" && typeof( DeviceMotionEvent.requestPermission ) === "function" ) {
+function permission() {
+    if (typeof (DeviceMotionEvent) !== "undefined" && typeof (DeviceMotionEvent.requestPermission) === "function") {
         // (optional) Do something before API request prompt.
         DeviceMotionEvent.requestPermission()
-            .then( response => {
+            .then(response => {
                 // (optional) Do something after API prompt dismissed.
-                if ( response == "granted" ) {
-                    window.addEventListener( "devicemotion", (e) => {
+                if (response === "granted") {
+                    window.addEventListener("devicemotion", (e) => {
                         // do something for 'e' here.
+
+                        let valueDisplays = document.querySelectorAll(".num")
+                        let interval = 100   // 17 = 60Gh
+
+                        valueDisplays.forEach((valueDisplay) => {
+                            let axis = valueDisplay.getAttribute("data-val")
+                            let counter = setInterval(function () {
+                                if (axis === 'x') {
+                                    valueDisplay.textContent = e.acceleration.x + ''
+                                } else if (axis === 'y') {
+                                    valueDisplay.textContent = e.acceleration.y + ''
+                                } else {
+                                    valueDisplay.textContent = e.acceleration.z + ''
+                                }
+                                // clearInterval(counter)
+                            }, interval)
+                        })
                     })
                 }
             })
-            .catch( console.error )
+            .catch(console.error)
     } else {
-        alert( "DeviceMotionEvent is not defined" );
+        alert("DeviceMotionEvent is not defined");
     }
 }
+
+//===================================
+

@@ -17,7 +17,7 @@ button.addEventListener("click", (e) => {
         rootEl.style.setProperty('--clr', '#9bff1e')
         button.innerText = 'start'
         rootEl.style.setProperty('--offset', '0px')
-        chart.style.display = 'none'
+        //chart.style.display = 'none'
     } else {
         rootEl.style.setProperty('--clr', '#ff1867')
         button.innerText = 'stop'

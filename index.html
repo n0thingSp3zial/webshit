@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>GetAcc</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://kit.fontawesome.com/4fafce667e.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<div>
+<div style="display: flex; flex-direction: column">
     <div class='chart' style='display: none'>
         <div class="wrapper">
             <div class="container">
@@ -24,7 +25,11 @@
             </div>
         </div>
     </div>
-    <button class='mainButton'>START</button>
+
+    <div class='buttons' style="display: flex; flex-direction: column">
+        <button class='downloadButton' style="position: relative; display: none"><i class="fa-solid fa-download"></i>Download</button>
+        <button class='mainButton'>START</button>
+    </div>
 </div>
 
 <script src='app.js'>

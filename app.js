@@ -76,7 +76,7 @@ function myListener(e) {
         b_rot.push(curObj.b_rot)
         g_rot.shift()
         g_rot.push(curObj.g_rot)
-    
+
         accChart.update('none')
         gyroChart.update('none')
 }

@@ -8,6 +8,13 @@ let gestureArray = []
 let indexOfGestureArray = 0
 const n = 150
 
+let x_acc = new Array(n).fill(0)
+let y_acc = new Array(n).fill(0)
+let z_acc = new Array(n).fill(0)
+let a_rot = new Array(n).fill(0)
+let b_rot = new Array(n).fill(0)
+let g_rot = new Array(n).fill(0)
+
 rootEl.style.setProperty('--chartWidth', Math.floor(document.documentElement.scrollWidth * 0.9) + 'px')
 
 button.addEventListener("click", (e) => {
@@ -21,9 +28,12 @@ button.addEventListener("click", (e) => {
 
         gestureArray = []
         indexOfGestureArray = 0
-        valueDisplays.forEach((valueDisplay) => {
-            valueDisplay.textContent = '0.00'
-        })
+        x_acc = new Array(n).fill(0)
+        y_acc = new Array(n).fill(0)
+        z_acc = new Array(n).fill(0)
+        a_rot = new Array(n).fill(0)
+        b_rot = new Array(n).fill(0)
+        g_rot = new Array(n).fill(0)
 
         rootEl.style.setProperty('--clr', '#c8ff00')
         button.innerText = 'start'
@@ -44,13 +54,6 @@ button.addEventListener("click", (e) => {
         downloadButton.style.display = 'block'
     }
 })
-
-let x_acc = new Array(n).fill(0)
-let y_acc = new Array(n).fill(0)
-let z_acc = new Array(n).fill(0)
-let a_rot = new Array(n).fill(0)
-let b_rot = new Array(n).fill(0)
-let g_rot = new Array(n).fill(0)
 
 function myListener(e) {
         const curObj = {
@@ -131,29 +134,33 @@ Chart.defaults.color = '#e0e0e0'
 const AccChart = document.getElementById('AccelerationChart')
 const GyroChart = document.getElementById('GyroChart')
 
-const myScales = {
-    x: {
-        grid: {
-            display: false
+function createScales(suggested) {
+    return {
+        x: {
+            grid: {
+                display: false,
+            },
+            border: {
+                display: false,
+            },
+            ticks: {
+                display: false,
+            },
         },
-        border: {
-            display: false
+        y: {
+            grid: {
+                display: false,
+            },
+            border: {
+                display: false,
+            },
+            ticks: {
+                display: false,
+            },
+            suggestedMin: -suggested,
+            suggestedMax: suggested
         },
-        ticks: {
-            display: false
-        }
-    },
-    y: {
-        grid: {
-            display: false
-        },
-        border: {
-            display: false
-        },
-        ticks: {
-            display: false
-        }
-    }
+    };
 }
 
 const accChart = new Chart(AccChart, {
@@ -183,7 +190,7 @@ const accChart = new Chart(AccChart, {
             }]
     },
     options: {
-        scales: myScales,
+        scales: createScales(10),
         plugins: {
             title: {
                 display: true,
@@ -223,7 +230,7 @@ const gyroChart = new Chart(GyroChart, {
             }]
     },
     options: {
-        scales: myScales,
+        scales: createScales(100),
         plugins: {
             title: {
                 display: true,

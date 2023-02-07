@@ -4,26 +4,19 @@
     <meta charset="UTF-8">
     <title>GetAcc</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+
     <script src="https://kit.fontawesome.com/4fafce667e.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-streaming/2.0.0/chartjs-plugin-streaming.min.js" integrity="sha512-pSxAn0V22F4p92VllULJWP5yR5a5FfSPCzHum2P7MrbzmYNiaYsED0UZUF9JzRSZvRlemas5Yqf7F90xFvFthA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
 <body>
 
 <div style="display: flex; flex-direction: column">
     <div class='chart' style='display: none'>
-        <div class="wrapper">
-            <div class="container">
-                <span class="num" data-val="x">0.00</span>
-                <span class="text">X Axis Acceleration</span>
-            </div>
-            <div class="container">
-                <span class="num" data-val="y">0.00</span>
-                <span class="text">Y Axis Acceleration</span>
-            </div>
-            <div class="container">
-                <span class="num" data-val="z">0.00</span>
-                <span class="text">Z Axis Acceleration</span>
-            </div>
-        </div>
+        <canvas id="AccelerationChart"></canvas>
+        <div style="padding: 50px"></div>
+        <canvas id="GyroChart"></canvas>
     </div>
 
     <div class='buttons' style="display: flex; flex-direction: column">
@@ -32,8 +25,7 @@
     </div>
 </div>
 
-<script src='app.js'>
-</script>
+<script src='app.js'></script>
 
 </body>
 </html>

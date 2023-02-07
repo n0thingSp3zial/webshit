@@ -6,6 +6,9 @@ const valueDisplays = document.querySelectorAll(".num")
 const downloadButton = document.querySelector(".downloadButton")
 let gestureArray = []
 let indexOfGestureArray = 0
+const n = 150
+
+rootEl.style.setProperty('--chartWidth', Math.floor(document.documentElement.scrollWidth * 0.9) + 'px')
 
 button.addEventListener("click", (e) => {
     e.preventDefault()
@@ -22,38 +25,34 @@ button.addEventListener("click", (e) => {
             valueDisplay.textContent = '0.00'
         })
 
-        rootEl.style.setProperty('--clr', '#9bff1e')
+        rootEl.style.setProperty('--clr', '#c8ff00')
         button.innerText = 'start'
-        rootEl.style.setProperty('--offset', '0px')
         chart.style.display = 'none'
         downloadButton.style.display = 'none'
         rootEl.style.setProperty('--mrd', '10px')
         rootEl.style.setProperty('--mld', '0px')
         downloadButton.innerHTML = '<i class="fa-solid fa-download"></i>Download'
     } else if (startPage % 3 === 1) {
-        rootEl.style.setProperty('--clr', '#ff1867')
+        rootEl.style.setProperty('--clr', '#ff073a')
         button.innerText = 'stop'
-        rootEl.style.setProperty('--offset', Math.floor(document.documentElement.scrollHeight / 4) + 'px')
         chart.style.display = 'block'
         permission()
     } else {
         window.removeEventListener("devicemotion", myListener)
-        rootEl.style.setProperty('--clr', '#1867ff')
+        rootEl.style.setProperty('--clr', '#04d9ff')
         button.innerText = 'back'
         downloadButton.style.display = 'block'
     }
 })
 
+let x_acc = new Array(n).fill(0)
+let y_acc = new Array(n).fill(0)
+let z_acc = new Array(n).fill(0)
+let a_rot = new Array(n).fill(0)
+let b_rot = new Array(n).fill(0)
+let g_rot = new Array(n).fill(0)
+
 function myListener(e) {
-    valueDisplays.forEach((valueDisplay) => {
-        let axis = valueDisplay.getAttribute("data-val")
-        if (axis === 'x') {
-            valueDisplay.textContent = (Math.round(e.acceleration.x * 100) / 100).toFixed(2) + ''
-        } else if (axis === 'y') {
-            valueDisplay.textContent = (Math.round(e.acceleration.y * 100) / 100).toFixed(2) + ''
-        } else {
-            valueDisplay.textContent = (Math.round(e.acceleration.z * 100) / 100).toFixed(2) + ''
-        }
         const curObj = {
             'index': indexOfGestureArray++,
             'x_acc': e.acceleration.x,
@@ -64,7 +63,22 @@ function myListener(e) {
             'g_rot': e.rotationRate.gamma
         }
         gestureArray.push(curObj)
-    })
+
+        x_acc.shift()
+        x_acc.push(curObj.x_acc)
+        y_acc.shift()
+        y_acc.push(curObj.y_acc)
+        z_acc.shift()
+        z_acc.push(curObj.z_acc)
+        a_rot.shift()
+        a_rot.push(curObj.a_rot)
+        b_rot.shift()
+        b_rot.push(curObj.b_rot)
+        g_rot.shift()
+        g_rot.push(curObj.g_rot)
+    
+        accChart.update('none')
+        gyroChart.update('none')
 }
 
 function permission() {
@@ -108,3 +122,116 @@ downloadButton.addEventListener('click', (e) => {
     a.remove()
 })
 
+//======================================================================================================================
+
+Chart.defaults.font.size = 20
+Chart.defaults.font.family = "'Symbol', system-ui"
+Chart.defaults.color = '#e0e0e0'
+
+const AccChart = document.getElementById('AccelerationChart')
+const GyroChart = document.getElementById('GyroChart')
+
+const myScales = {
+    x: {
+        grid: {
+            display: false
+        },
+        border: {
+            display: false
+        },
+        ticks: {
+            display: false
+        }
+    },
+    y: {
+        grid: {
+            display: false
+        },
+        border: {
+            display: false
+        },
+        ticks: {
+            display: false
+        }
+    }
+}
+
+const accChart = new Chart(AccChart, {
+    type: 'line',
+    data: {
+        labels: Array(n).join('.').split('.'),
+        datasets: [{
+            label: 'X Axis',
+            data: x_acc,
+            fill: false,
+            borderColor: '#bc13fe',
+            pointRadius: 0
+            },
+            {
+                label: 'Y Axis',
+                data: y_acc,
+                fill: false,
+                borderColor: '#04d9ff',
+                pointRadius: 0
+            },
+            {
+                label: 'Z Axis',
+                data: z_acc,
+                fill: false,
+                borderColor: '#c8ff00',
+                pointRadius: 0
+            }]
+    },
+    options: {
+        scales: myScales,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Acceleration',
+                font: {
+                    size: 40
+                }
+            }
+        }
+    }
+})
+
+const gyroChart = new Chart(GyroChart, {
+    type: 'line',
+    data: {
+        labels: Array(n).join('.').split('.'),
+        datasets: [{
+            label: 'X Axis',
+            data: a_rot,
+            fill: false,
+            borderColor: '#fe019a',
+            pointRadius: 0
+            },
+            {
+                label: 'Y Axis',
+                data: b_rot,
+                fill: false,
+                borderColor: '#7df9ff',
+                pointRadius: 0
+            },
+            {
+                label: 'Z Axis',
+                data: g_rot,
+                fill: false,
+                borderColor: '#5555ff',
+                pointRadius: 0
+            }]
+    },
+    options: {
+        scales: myScales,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Rotation',
+                font: {
+                    size: 40
+                }
+            }
+        }
+    }
+})

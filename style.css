@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-
 :root {
-    --clr: #9bff1e;
-    --offset: 0px;
+    --clr: #c8ff00;
+    --mainButtonWidth: 100%;
     --mrd: 10px;
     --mld: 0px;
+    --chartWidth: 500px
 }
 
 * {
@@ -21,6 +21,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    /*background: #e0e0e0;*/
 }
 
 /*
@@ -31,7 +32,6 @@ body {
 */
 .buttons {
     position: relative;
-    top: var(--offset);
     justify-content: space-around;
     gap: 10px;
 }
@@ -50,166 +50,13 @@ body {
     color: #151D28;
     cursor: pointer;
     background-color: var(--clr);
-    transition: all 0.2s ease;
 }
 
 .mainButton:active {
     transform: scale(0.96);
 }
 
-.mainButton:before,
-.mainButton:after {
-    position: absolute;
-    content: "";
-    width: 150%;
-    left: 50%;
-    height: 100%;
-    transform: translateX(-50%);
-    z-index: -1000;
-    background-repeat: no-repeat;
-}
-
-.mainButton.animate::before {
-    top: -70%;
-    background-image: radial-gradient(circle, var(--clr) 20%, transparent 20%),
-    radial-gradient(circle, transparent 20%, var(--clr) 20%, transparent 30%),
-    radial-gradient(circle, var(--clr) 20%, transparent 20%),
-    radial-gradient(circle, var(--clr) 20%, transparent 20%),
-    radial-gradient(circle, transparent 10%, var(--clr) 15%, transparent 20%),
-    radial-gradient(circle, var(--clr) 20%, transparent 20%),
-    radial-gradient(circle, var(--clr) 20%, transparent 20%),
-    radial-gradient(circle, var(--clr) 20%, transparent 20%),
-    radial-gradient(circle, var(--clr) 20%, transparent 20%);
-    background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%,
-    10% 10%, 18% 18%;
-    animation: greentopBubbles ease-in-out 0.6s forwards infinite;
-}
-
-@keyframes greentopBubbles {
-    0% {
-        background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%,
-        40% 90%, 55% 90%, 70% 90%;
-    }
-    50% {
-        background-position: 0 80%, 0 20%, 10% 40%, 20% 0, 30% 30%, 22% 50%,
-        50% 50%, 65% 20%, 90% 30%;
-    }
-    100% {
-        background-position: 0 70%, 0 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%,
-        50% 40%, 65% 10%, 90% 20%;
-        background-size: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
-    }
-}
-
-.mainButton.animate::after {
-    bottom: -70%;
-    background-image: radial-gradient(circle, var(--clr) 20%, transparent 20%),
-    radial-gradient(circle, var(--clr) 20%, transparent 20%),
-    radial-gradient(circle, transparent 10%, var(--clr) 15%, transparent 20%),
-    radial-gradient(circle, var(--clr) 20%, transparent 20%),
-    radial-gradient(circle, var(--clr) 20%, transparent 20%),
-    radial-gradient(circle, var(--clr) 20%, transparent 20%),
-    radial-gradient(circle, var(--clr) 20%, transparent 20%);
-    background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
-    animation: greenbottomBubbles ease-in-out 0.6s forwards infinite;
-}
-
-@keyframes greenbottomBubbles {
-    0% {
-        background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%,
-        70% -10%, 70% 0;
-    }
-    50% {
-        background-position: 0 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%,
-        105% 0;
-    }
-    100% {
-        background-position: 0 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%,
-        110% 10%;
-        background-size: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
-    }
-}
-
 /*=================================================================================*/
-
-.wrapper {
-    position: absolute;
-    width: 80vw;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    display: flex;
-    justify-content: space-around;
-    gap: 10px;
-}
-
-.container {
-    width: 28vmin;
-    height: 28vmin;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    padding: 1em 0;
-    position: relative;
-    font-size: 16px;
-    border-radius: 0.5em;
-    background-color: #1b2735;
-    border-bottom: 10px solid #18f98f;
-}
-
-span.num {
-    color: #ffffff;
-    display: grid;
-    place-items: center;
-    font-weight: 600;
-    font-size: 5em;
-}
-
-span.text {
-    color: #e0e0e0;
-    font-size: 1.3em;
-    text-align: center;
-    font-weight: 400;
-    line-height: 0;
-}
-
-@media screen and (max-width: 1024px) {
-    .wrapper {
-        width: 85vw;
-    }
-
-    .container {
-        height: 26vmin;
-        width: 26vmin;
-        font-size: 12px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .wrapper {
-        width: 90vw;
-        flex-wrap: wrap;
-        gap: 30px;
-    }
-
-    .container {
-        width: calc(50% - 40px);
-        height: 30vmin;
-        font-size: 14px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .wrapper {
-        gap: 15px;
-    }
-
-    .container {
-        width: 100%;
-        height: 25vmin;
-        font-size: 8px;
-    }
-}
 
 /*=================================================================================*/
 
@@ -281,3 +128,8 @@ span.text {
     background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 20% 20%, 18% 18%;
     animation: greenbottomBubbles ease-in-out 0.6s forwards infinite;
 }
+
+.chart {
+    width: var(--chartWidth);
+    padding-bottom: 70px;
+ }

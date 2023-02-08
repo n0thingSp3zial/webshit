@@ -105,7 +105,7 @@ body {
 .inputBox input {
     width: 100%;
     padding: 15px;
-    border: 1px solid #1b2735;
+    border: 1px solid #394164;
     background: transparent;
     border-radius: 15px;
     outline: none;
@@ -122,14 +122,14 @@ body {
     pointer-events: none;
     font-size: 1.5em;
     letter-spacing: 0.18em;
-    color: #1b2735;
+    color: #394164;
     text-transform: uppercase;
     transition: 0.5s;
 }
 
 .inputBox input:valid ~ span,
 .inputBox input:focus ~ span {
-    color: #1b2735;
+    color: #394164;
     transform: translateX(20px) translateY(-10px);
     font-size: 1em;
     padding: 0 10px;

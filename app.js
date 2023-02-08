@@ -2,11 +2,22 @@ const button = document.querySelector(".mainButton")
 const chart = document.querySelector(".chart")
 let startPage = 0 // 0 - start | 1 - stop | 2 - download/back
 const rootEl = document.querySelector(':root')
-const valueDisplays = document.querySelectorAll(".num")
 const downloadButton = document.querySelector(".downloadButton")
+const inputBoxes = document.querySelector(".inputBoxes")
 let gestureArray = []
 let indexOfGestureArray = 0
 const n = 150
+let gestureName = ''
+let userName = ''
+
+
+document.getElementById('gestureField').addEventListener('change', e => {
+    gestureName = document.getElementById('gestureField').value
+})
+
+document.getElementById('nameField').addEventListener('change', e => {
+    userName = document.getElementById('nameField').value
+})
 
 let x_acc = new Array(n).fill(0)
 let y_acc = new Array(n).fill(0)
@@ -17,14 +28,14 @@ let g_rot = new Array(n).fill(0)
 
 rootEl.style.setProperty('--chartWidth', Math.floor(document.documentElement.scrollWidth * 0.9) + 'px')
 
-button.addEventListener("click", (e) => {
+button.addEventListener("click", e => {
     e.preventDefault()
     button.classList.add("animate")
     setTimeout(() => {
         button.classList.remove("animate")
     }, 600)
     startPage += 1
-    if (startPage % 3 === 0) {
+    if (startPage % 3 === 0) {                                                      // START PAGE
 
         gestureArray = []
         indexOfGestureArray = 0
@@ -38,16 +49,18 @@ button.addEventListener("click", (e) => {
         rootEl.style.setProperty('--clr', '#c8ff00')
         button.innerText = 'start'
         chart.style.display = 'none'
+        inputBoxes.style.display = 'block'
         downloadButton.style.display = 'none'
         rootEl.style.setProperty('--mrd', '10px')
         rootEl.style.setProperty('--mld', '0px')
         downloadButton.innerHTML = '<i class="fa-solid fa-download"></i>Download'
-    } else if (startPage % 3 === 1) {
+    } else if (startPage % 3 === 1) {                                               // CHARTS PAGE
         rootEl.style.setProperty('--clr', '#ff073a')
         button.innerText = 'stop'
         chart.style.display = 'block'
+        inputBoxes.style.display = 'none'
         permission()
-    } else {
+    } else {                                                                        // DOWNLOAD PAGE
         window.removeEventListener("devicemotion", myListener)
         rootEl.style.setProperty('--clr', '#04d9ff')
         button.innerText = 'back'
@@ -56,32 +69,32 @@ button.addEventListener("click", (e) => {
 })
 
 function myListener(e) {
-        const curObj = {
-            'index': indexOfGestureArray++,
-            'x_acc': e.acceleration.x,
-            'y_acc': e.acceleration.y,
-            'z_acc': e.acceleration.z,
-            'a_rot': e.rotationRate.alpha,
-            'b_rot': e.rotationRate.beta,
-            'g_rot': e.rotationRate.gamma
-        }
-        gestureArray.push(curObj)
+    const curObj = {
+        'index': indexOfGestureArray++,
+        'x_acc': e.acceleration.x,
+        'y_acc': e.acceleration.y,
+        'z_acc': e.acceleration.z,
+        'a_rot': e.rotationRate.alpha,
+        'b_rot': e.rotationRate.beta,
+        'g_rot': e.rotationRate.gamma
+    }
+    gestureArray.push(curObj)
 
-        x_acc.shift()
-        x_acc.push(curObj.x_acc)
-        y_acc.shift()
-        y_acc.push(curObj.y_acc)
-        z_acc.shift()
-        z_acc.push(curObj.z_acc)
-        a_rot.shift()
-        a_rot.push(curObj.a_rot)
-        b_rot.shift()
-        b_rot.push(curObj.b_rot)
-        g_rot.shift()
-        g_rot.push(curObj.g_rot)
+    x_acc.shift()
+    x_acc.push(curObj.x_acc)
+    y_acc.shift()
+    y_acc.push(curObj.y_acc)
+    z_acc.shift()
+    z_acc.push(curObj.z_acc)
+    a_rot.shift()
+    a_rot.push(curObj.a_rot)
+    b_rot.shift()
+    b_rot.push(curObj.b_rot)
+    g_rot.shift()
+    g_rot.push(curObj.g_rot)
 
-        accChart.update('none')
-        gyroChart.update('none')
+    accChart.update('none')
+    gyroChart.update('none')
 }
 
 function permission() {
@@ -102,7 +115,7 @@ function permission() {
 
 //======================================================================================================================
 
-downloadButton.addEventListener('click', (e) => {
+downloadButton.addEventListener('click', e => {
     e.preventDefault()
     downloadButton.classList.add("animate")
     setTimeout(() => {
@@ -117,8 +130,15 @@ downloadButton.addEventListener('click', (e) => {
     const blob = new Blob([gesture], {type: 'application/json'})
 
     const href = URL.createObjectURL(blob)
+    const currentDate = new Date();
+    const dateTime = '' + currentDate.getFullYear() + "_"
+        + (currentDate.getMonth() + 1) + "_"
+        + currentDate.getDate() + "@"
+        + currentDate.getHours() + "_"
+        + currentDate.getMinutes() + "_"
+        + currentDate.getSeconds()
     const a = Object.assign(document.createElement('a'),
-        {href, style: 'display:none', download: 'myGesture.json'})
+        {href, style: 'display:none', download: gestureName + '_' + userName + '_' + dateTime + '.json'})
     document.body.appendChild(a)
     a.click()
     URL.revokeObjectURL(href)
@@ -173,7 +193,7 @@ const accChart = new Chart(AccChart, {
             fill: false,
             borderColor: '#bc13fe',
             pointRadius: 0
-            },
+        },
             {
                 label: 'Y Axis',
                 data: y_acc,
@@ -213,7 +233,7 @@ const gyroChart = new Chart(GyroChart, {
             fill: false,
             borderColor: '#fe019a',
             pointRadius: 0
-            },
+        },
             {
                 label: 'Y Axis',
                 data: b_rot,
@@ -230,7 +250,7 @@ const gyroChart = new Chart(GyroChart, {
             }]
     },
     options: {
-        scales: createScales(100),
+        scales: createScales(150),
         plugins: {
             title: {
                 display: true,

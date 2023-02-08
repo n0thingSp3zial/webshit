@@ -91,4 +91,56 @@ body {
 .chart {
     width: var(--chartWidth);
     padding-bottom: 70px;
- }
+}
+
+/*=================================================================================*/
+
+/*=================================================================================*/
+
+.inputBox {
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.inputBox input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #1b2735;
+    background: transparent;
+    border-radius: 15px;
+    outline: none;
+    color: #e0e0e0;
+    font-size: 1.5em;
+    letter-spacing: 0.18em;
+    transition: 0.5s;
+}
+
+.inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 15px;
+    pointer-events: none;
+    font-size: 1.5em;
+    letter-spacing: 0.18em;
+    color: #1b2735;
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span {
+    color: #1b2735;
+    transform: translateX(20px) translateY(-10px);
+    font-size: 1em;
+    padding: 0 10px;
+    background: #c8ff00;
+    border-left: 1px solid #c8ff00;
+    border-right: 1px solid #c8ff00;
+    letter-spacing: 0.2em;
+    border-radius: 6px;
+}
+
+.inputBox input:valid,
+.inputBox input:focus {
+    border: 1px solid #c8ff00;
+}

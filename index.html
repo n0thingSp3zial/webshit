@@ -7,20 +7,35 @@
 
     <script src="https://kit.fontawesome.com/4fafce667e.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-streaming/2.0.0/chartjs-plugin-streaming.min.js" integrity="sha512-pSxAn0V22F4p92VllULJWP5yR5a5FfSPCzHum2P7MrbzmYNiaYsED0UZUF9JzRSZvRlemas5Yqf7F90xFvFthA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-streaming/2.0.0/chartjs-plugin-streaming.min.js"
+            integrity="sha512-pSxAn0V22F4p92VllULJWP5yR5a5FfSPCzHum2P7MrbzmYNiaYsED0UZUF9JzRSZvRlemas5Yqf7F90xFvFthA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 </head>
 <body>
 
 <div style="display: flex; flex-direction: column">
+
     <div class='chart' style='display: none'>
         <canvas id="AccelerationChart"></canvas>
         <div style="padding: 50px"></div>
         <canvas id="GyroChart"></canvas>
     </div>
 
+    <div class="inputBoxes">
+        <div class="inputBox">
+            <input type="text" required="required" id="nameField">
+            <span>Name</span>
+        </div>
+        <div class="inputBox">
+            <input type="text" required="required" id="gestureField">
+            <span>Gesture</span>
+        </div>
+    </div>
+
     <div class='buttons' style="display: flex; flex-direction: column">
-        <button class='downloadButton' style="position: relative; display: none"><i class="fa-solid fa-download"></i>Download</button>
+        <button class='downloadButton' style="position: relative; display: none"><i class="fa-solid fa-download"></i>Download
+        </button>
         <button class='mainButton'>START</button>
     </div>
 </div>

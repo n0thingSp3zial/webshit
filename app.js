@@ -119,9 +119,11 @@ function permission() {
                 }
             })
             .catch(console.error)
-    } else {
-        //alert("DeviceMotionEvent is not defined")
-        alert(detectMob())
+    } else if (detectMob()) {
+        window.addEventListener("devicemotion", myListener)
+    }
+    else {
+        alert("DeviceMotionEvent is not defined")
     }
 }
 

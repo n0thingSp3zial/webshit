@@ -39,12 +39,12 @@ button.addEventListener("click", e => {
 
         gestureArray = []
         indexOfGestureArray = 0
-        x_acc = new Array(n).fill(0)
-        y_acc = new Array(n).fill(0)
-        z_acc = new Array(n).fill(0)
-        a_rot = new Array(n).fill(0)
-        b_rot = new Array(n).fill(0)
-        g_rot = new Array(n).fill(0)
+        x_acc.fill(0)
+        y_acc.fill(0)
+        z_acc.fill(0)
+        a_rot.fill(0)
+        b_rot.fill(0)
+        g_rot.fill(0)
 
         rootEl.style.setProperty('--clr', '#c8ff00')
         button.innerText = 'start'
@@ -74,9 +74,9 @@ function myListener(e) {
         'x_acc': e.acceleration.x,
         'y_acc': e.acceleration.y,
         'z_acc': e.acceleration.z,
-        'a_rot': e.rotationRate.alpha,
-        'b_rot': e.rotationRate.beta,
-        'g_rot': e.rotationRate.gamma
+        'x_rot': e.rotationRate.alpha,
+        'y_rot': e.rotationRate.beta,
+        'z_rot': e.rotationRate.gamma
     }
     gestureArray.push(curObj)
 
@@ -87,11 +87,11 @@ function myListener(e) {
     z_acc.shift()
     z_acc.push(curObj.z_acc)
     a_rot.shift()
-    a_rot.push(curObj.a_rot)
+    a_rot.push(curObj.x_rot)
     b_rot.shift()
-    b_rot.push(curObj.b_rot)
+    b_rot.push(curObj.y_rot)
     g_rot.shift()
-    g_rot.push(curObj.g_rot)
+    g_rot.push(curObj.z_rot)
 
     accChart.update('none')
     gyroChart.update('none')

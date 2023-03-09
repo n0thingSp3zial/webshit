@@ -10,6 +10,17 @@ const n = 150
 let gestureName = ''
 let userName = ''
 
+function detectMob() {
+    const toMatch = [
+        /Android/i,
+        /BlackBerry/i,
+        /Windows Phone/i
+    ];
+
+    return toMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+    });
+}
 
 document.getElementById('gestureField').addEventListener('change', e => {
     gestureName = document.getElementById('gestureField').value
@@ -109,7 +120,8 @@ function permission() {
             })
             .catch(console.error)
     } else {
-        alert("DeviceMotionEvent is not defined");
+        //alert("DeviceMotionEvent is not defined")
+        alert(detectMob())
     }
 }
 
